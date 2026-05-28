@@ -19,6 +19,10 @@ uid = "83906e22-38c1-0b0a-a07a-f20611508cc701a7baa2"
 module = "./src/Checkout.jsx"
 target = "purchase.thank-you.block.render"
 
+[[extensions.targeting]]
+module = "./src/Checkout.jsx"
+target = "customer-account.order-status.block.render"
+
 [extensions.capabilities]
 # Gives your extension access to directly query Shopify’s storefront API.
 # https://shopify.dev/docs/api/checkout-ui-extensions/latest/configuration#api-access
