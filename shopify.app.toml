@@ -23,7 +23,7 @@ api_version = "2026-07"
 scopes = "write_products,write_metaobjects,write_metaobject_definitions,read_orders"
 
 [auth]
-redirect_urls = [ "https://cod-thank-u-msg.vercel.app/api/auth" ]
+redirect_urls = [ "https://cod-thank-u-msg.vercel.app/auth/callback" ]
 
 [product.metafields.app.demo_info]
 type = "single_line_text_field"
