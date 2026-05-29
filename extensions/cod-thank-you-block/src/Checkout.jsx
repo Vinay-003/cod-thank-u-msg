@@ -2,8 +2,7 @@ import '@shopify/ui-extensions/preact';
 import {render} from 'preact';
 import {useEffect, useState} from 'preact/hooks';
 
-const APP_BACKEND_URL = 'https://online-brilliant-laundry-handled.trycloudflare.com';
-
+const APP_BACKEND_URL = 'https://cod-thank-u-msg.vercel.app';
 export default async () => {
   render(<Extension />, document.body);
 };
