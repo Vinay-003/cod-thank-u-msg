@@ -1,5 +1,28 @@
 const ADMIN_API_VERSION = "2025-10";
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+
+export async function loader({ request }) {
+  if (request.method === "OPTIONS") {
+    return new Response(null, {
+      status: 204,
+      headers: corsHeaders,
+    });
+  }
+
+  return Response.json(
+    { error: "Method not allowed" },
+    {
+      status: 405,
+      headers: corsHeaders,
+    },
+  );
+}
+
 export async function action({ request }) {
   try {
     const body = await request.json();
@@ -8,7 +31,7 @@ export async function action({ request }) {
     if (!orderId) {
       return Response.json(
         { isCod: false, error: "Missing orderId" },
-        { status: 400 },
+        { status: 400, headers: corsHeaders },
       );
     }
 
@@ -22,7 +45,7 @@ export async function action({ request }) {
     if (!token) {
       return Response.json(
         { isCod: false, error: "Missing SHOPIFY_ADMIN_ACCESS_TOKEN" },
-        { status: 500 },
+        { status: 500, headers: corsHeaders },
       );
     }
 
@@ -65,22 +88,27 @@ export async function action({ request }) {
           error: "GraphQL error",
           details: result.errors || result,
         },
-        { status: 500 },
+        { status: 500, headers: corsHeaders },
       );
     }
 
     const order = result.data?.order;
 
     if (!order) {
-      return Response.json({
-        isCod: false,
-        error: "Order not found",
-      });
+      return Response.json(
+        {
+          isCod: false,
+          error: "Order not found",
+        },
+        { headers: corsHeaders },
+      );
     }
 
     const paymentText = [
       ...(order.paymentGatewayNames || []),
-      ...(order.transactions || []).map((transaction) => transaction.gateway || ""),
+      ...(order.transactions || []).map(
+        (transaction) => transaction.gateway || "",
+      ),
     ]
       .join(" ")
       .toLowerCase();
@@ -90,18 +118,21 @@ export async function action({ request }) {
       paymentText.includes("cod") ||
       paymentText.includes("cash");
 
-    return Response.json({
-      isCod,
-      orderName: order.name,
-      paymentGatewayNames: order.paymentGatewayNames || [],
-      paymentText,
-    });
+    return Response.json(
+      {
+        isCod,
+        orderName: order.name,
+        paymentGatewayNames: order.paymentGatewayNames || [],
+        paymentText,
+      },
+      { headers: corsHeaders },
+    );
   } catch (error) {
     console.error("COD check failed:", error);
 
     return Response.json(
       { isCod: false, error: error.message },
-      { status: 500 },
+      { status: 500, headers: corsHeaders },
     );
   }
 }
