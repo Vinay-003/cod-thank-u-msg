@@ -1,3 +1,5 @@
+import prisma from "../../db.server";
+
 const ADMIN_API_VERSION = "2025-10";
 
 const corsHeaders = {
@@ -40,12 +42,25 @@ export async function action({ request }) {
       process.env.SHOPIFY_STORE_DOMAIN ||
       "cod-thank-you-test.myshopify.com";
 
-    const token = process.env.SHOPIFY_ADMIN_ACCESS_TOKEN;
+    const session = await prisma.session.findFirst({
+      where: {
+        shop,
+        isOnline: false,
+      },
+      orderBy: {
+        id: "asc",
+      },
+    });
+
+    const token = session?.accessToken;
 
     if (!token) {
       return Response.json(
-        { isCod: false, error: "Missing SHOPIFY_ADMIN_ACCESS_TOKEN" },
-        { status: 500, headers: corsHeaders },
+        {
+          isCod: false,
+          error: `No stored offline session token found for ${shop}. Reinstall the app on this store.`,
+        },
+        { status: 401, headers: corsHeaders },
       );
     }
 
