@@ -10,7 +10,7 @@ generator client {
 // See https://www.prisma.io/docs/orm/reference/prisma-schema-reference#string for more information
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("PRISMA_DATABASE_URL")
 }
 
 model Session {
@@ -31,4 +31,15 @@ model Session {
   emailVerified Boolean?  @default(false)
   refreshToken        String?
   refreshTokenExpires DateTime?
+}
+
+model CodMessageSettings {
+  shop        String   @id
+  enabled     Boolean  @default(true)
+  heading     String   @default("COD Confirmation Required")
+  badgeText   String   @default("ACTION NEEDED")
+  bodyText    String   @default("Please confirm your COD order on WhatsApp. We've sent you a confirmation message.")
+  warningText String   @default("Without confirmation, your order will not be shipped.")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

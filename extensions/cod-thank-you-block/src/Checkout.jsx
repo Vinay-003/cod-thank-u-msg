@@ -10,6 +10,13 @@ export default async () => {
 function Extension() {
   const [isLoading, setIsLoading] = useState(true);
   const [isCod, setIsCod] = useState(false);
+  const [message, setMessage] = useState({
+    heading: "COD Confirmation Required",
+    badgeText: "ACTION NEEDED",
+    bodyText:
+      "Please confirm your COD order on WhatsApp. We've sent you a confirmation message.",
+    warningText: "Without confirmation, your order will not be shipped.",
+  });
 
   useEffect(() => {
     async function checkCodPayment() {
@@ -62,6 +69,13 @@ function Extension() {
         });
 
         setIsCod(Boolean(data?.isCod));
+
+        if (data?.message) {
+          setMessage((current) => ({
+            ...current,
+            ...data.message,
+          }));
+        }
       } catch (error) {
         console.log('COD block error:', error);
       } finally {
@@ -80,23 +94,23 @@ function Extension() {
     return null;
   }
 
- return (
-  <s-banner heading="COD Confirmation Required" tone="warning">
-    <s-stack gap="base">
-      <s-badge tone="critical">
-        ACTION NEEDED
-      </s-badge>
+  return (
+    <s-banner heading={message.heading} tone="warning">
+      <s-stack gap="base">
+        <s-badge tone="critical">
+          {message.badgeText}
+        </s-badge>
 
-      <s-text>
-        Please confirm your COD order on WhatsApp. We've sent you a message requesting confirmation. 
-      </s-text>
+        <s-text>
+          {message.bodyText}
+        </s-text>
 
-      <s-heading>
-        Without confirmation, your order will not be shipped.
-      </s-heading>
-    </s-stack>
-  </s-banner>
-);
+        <s-heading>
+          {message.warningText}
+        </s-heading>
+      </s-stack>
+    </s-banner>
+  );
 }
 
 

@@ -161,7 +161,7 @@ export async function action({ request }) {
           isCod: false,
           error: "Order not found",
         },
-        { headers: corsHeaders },
+        { status: 200, headers: corsHeaders },
       );
     }
 
@@ -179,14 +179,40 @@ export async function action({ request }) {
       paymentText.includes("cod") ||
       paymentText.includes("cash");
 
+    const settings = await prisma.codMessageSettings.findUnique({
+      where: {
+        shop,
+      },
+    });
+
+    const defaultSettings = {
+      enabled: true,
+      heading: "COD Confirmation Required",
+      badgeText: "ACTION NEEDED",
+      bodyText:
+        "Please confirm your COD order on WhatsApp. We've sent you a confirmation message.",
+      warningText: "Without confirmation, your order will not be shipped.",
+    };
+
+    const messageSettings = {
+      ...defaultSettings,
+      ...(settings || {}),
+    };
+
     return Response.json(
       {
-        isCod,
+        isCod: Boolean(isCod && messageSettings.enabled),
         orderName: order.name,
         paymentGatewayNames: order.paymentGatewayNames || [],
         paymentText,
+        message: {
+          heading: messageSettings.heading,
+          badgeText: messageSettings.badgeText,
+          bodyText: messageSettings.bodyText,
+          warningText: messageSettings.warningText,
+        },
       },
-      { headers: corsHeaders },
+      { status: 200, headers: corsHeaders },
     );
   } catch (error) {
     console.error("COD check failed:", error);
