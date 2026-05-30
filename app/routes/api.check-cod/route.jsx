@@ -42,16 +42,26 @@ export async function action({ request }) {
       process.env.SHOPIFY_STORE_DOMAIN ||
       "cod-thank-you-test.myshopify.com";
 
-    const session = await prisma.session.findFirst({
+    const sessions = await prisma.session.findMany({
       where: {
         shop,
         isOnline: false,
+        accessToken: {
+          not: "",
+        },
       },
       orderBy: {
-        id: "asc",
+        id: "desc",
       },
     });
 
+    console.log("Offline sessions found in /api/check-cod", {
+      shop,
+      count: sessions.length,
+      sessionIds: sessions.map((s) => s.id),
+    });
+
+    const session = sessions[0];
     const token = session?.accessToken;
 
     if (!token) {
@@ -105,10 +115,32 @@ export async function action({ request }) {
       console.error("Shopify GraphQL failed in /api/check-cod", {
         shop,
         orderId,
+        sessionId: session?.id,
         status: response.status,
         statusText: response.statusText,
         result,
       });
+
+      if (response.status === 401 && session?.id) {
+        try {
+          await prisma.session.delete({
+            where: {
+              id: session.id,
+            },
+          });
+
+          console.error("Deleted invalid Shopify offline session after 401", {
+            shop,
+            sessionId: session.id,
+          });
+        } catch (deleteError) {
+          console.error("Failed to delete invalid Shopify offline session", {
+            shop,
+            sessionId: session.id,
+            deleteError,
+          });
+        }
+      }
 
       return Response.json(
         {
