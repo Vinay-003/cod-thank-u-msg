@@ -43,11 +43,25 @@ function Extension() {
           }),
         });
 
-        const data = await response.json();
+        let data = null;
 
-        console.log('COD block response:', data);
+        try {
+          data = await response.json();
+        } catch (parseError) {
+          console.log('COD block: failed to parse API response', {
+            status: response.status,
+            parseError,
+          });
+          setIsCod(false);
+          return;
+        }
 
-        setIsCod(Boolean(data.isCod));
+        console.log('COD block response:', {
+          status: response.status,
+          data,
+        });
+
+        setIsCod(Boolean(data?.isCod));
       } catch (error) {
         console.log('COD block error:', error);
       } finally {
@@ -70,12 +84,14 @@ function Extension() {
     <s-banner heading="Cash on Delivery" tone="info">
       <s-stack gap="base">
         <s-text>
-          If you have placed a COD order, please confirm it through WhatsApp.
+          Please confirm your COD order on WhatsApp. We've sent you a confirmation message. 
         </s-text>
         <s-text>
-          We've sent you a message requesting confirmation.
+          Without confirmation, your order will not be shipped.
         </s-text>
       </s-stack>
     </s-banner>
   );
 }
+
+

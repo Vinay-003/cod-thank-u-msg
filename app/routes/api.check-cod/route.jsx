@@ -55,12 +55,17 @@ export async function action({ request }) {
     const token = session?.accessToken;
 
     if (!token) {
+      console.error("No offline Shopify session token found in /api/check-cod", {
+        shop,
+        orderId,
+      });
+
       return Response.json(
         {
           isCod: false,
           error: `No stored offline session token found for ${shop}. Reinstall the app on this store.`,
         },
-        { status: 401, headers: corsHeaders },
+        { status: 200, headers: corsHeaders },
       );
     }
 
@@ -97,13 +102,22 @@ export async function action({ request }) {
     const result = await response.json();
 
     if (!response.ok || result.errors) {
+      console.error("Shopify GraphQL failed in /api/check-cod", {
+        shop,
+        orderId,
+        status: response.status,
+        statusText: response.statusText,
+        result,
+      });
+
       return Response.json(
         {
           isCod: false,
           error: "GraphQL error",
+          status: response.status,
           details: result.errors || result,
         },
-        { status: 500, headers: corsHeaders },
+        { status: 200, headers: corsHeaders },
       );
     }
 
@@ -147,7 +161,7 @@ export async function action({ request }) {
 
     return Response.json(
       { isCod: false, error: error.message },
-      { status: 500, headers: corsHeaders },
+      { status: 200, headers: corsHeaders },
     );
   }
 }
