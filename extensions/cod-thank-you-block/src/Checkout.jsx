@@ -81,16 +81,19 @@ function Extension() {
   }
 
  return (
-  <s-banner heading="COD confirmation required" tone="warning">
+  <s-banner heading="COD Confirmation Required" tone="warning">
     <s-stack gap="base">
-      <s-text emphasis="bold">
-        Action needed
-      </s-text>
+      <s-badge tone="critical">
+        ACTION NEEDED
+      </s-badge>
 
       <s-text>
-        If you have placed a COD order, please confirm it through WhatsApp.
-        We’ve sent you a message requesting confirmation.
+        Please confirm your COD order on WhatsApp. We've sent you a message requesting confirmation. 
       </s-text>
+
+      <s-heading>
+        Without confirmation, your order will not be shipped.
+      </s-heading>
     </s-stack>
   </s-banner>
 );
