@@ -80,18 +80,20 @@ function Extension() {
     return null;
   }
 
-  return (
-    <s-banner heading="Cash on Delivery" tone="info">
-      <s-stack gap="base">
-        <s-text>
-          Please confirm your COD order on WhatsApp. We've sent you a confirmation message. 
-        </s-text>
-        <s-text>
-          Without confirmation, your order will not be shipped.
-        </s-text>
-      </s-stack>
-    </s-banner>
-  );
+ return (
+  <s-banner heading="COD confirmation required" tone="warning">
+    <s-stack gap="base">
+      <s-text emphasis="bold">
+        Action needed
+      </s-text>
+
+      <s-text>
+        If you have placed a COD order, please confirm it through WhatsApp.
+        We’ve sent you a message requesting confirmation.
+      </s-text>
+    </s-stack>
+  </s-banner>
+);
 }
 
 
