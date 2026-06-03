@@ -148,6 +148,18 @@ export default function Index() {
                 defaultValue={currentSettings.warningText}
                 rows={2}
               />
+
+              <s-divider></s-divider>
+
+              <s-banner heading={currentSettings.heading} tone="warning">
+                <s-stack gap="base">
+                  <s-badge tone="critical">
+                    {currentSettings.badgeText}
+                  </s-badge>
+                  <s-text>{currentSettings.bodyText}</s-text>
+                  <s-heading>{currentSettings.warningText}</s-heading>
+                </s-stack>
+              </s-banner>
             </s-stack>
           </s-box>
 
@@ -180,6 +192,18 @@ export default function Index() {
                 defaultValue={currentSettings.confirmedWarningText}
                 rows={2}
               />
+
+              <s-divider></s-divider>
+
+              <s-banner heading={currentSettings.confirmedHeading} tone="success">
+                <s-stack gap="base">
+                  <s-badge tone="success">
+                    {currentSettings.confirmedBadgeText}
+                  </s-badge>
+                  <s-text>{currentSettings.confirmedBodyText}</s-text>
+                  <s-heading>{currentSettings.confirmedWarningText}</s-heading>
+                </s-stack>
+              </s-banner>
             </s-stack>
           </s-box>
 
@@ -212,6 +236,18 @@ export default function Index() {
                 defaultValue={currentSettings.cancelledWarningText}
                 rows={2}
               />
+
+              <s-divider></s-divider>
+
+              <s-banner heading={currentSettings.cancelledHeading} tone="critical">
+                <s-stack gap="base">
+                  <s-badge tone="critical">
+                    {currentSettings.cancelledBadgeText}
+                  </s-badge>
+                  <s-text>{currentSettings.cancelledBodyText}</s-text>
+                  <s-heading>{currentSettings.cancelledWarningText}</s-heading>
+                </s-stack>
+              </s-banner>
             </s-stack>
           </s-box>
 
