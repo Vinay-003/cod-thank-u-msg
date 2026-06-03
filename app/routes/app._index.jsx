@@ -151,7 +151,7 @@ export default function Index() {
 
               <s-divider></s-divider>
 
-              <s-box padding="base" borderWidth="base" borderRadius="base" background="subdued">
+              <s-box padding="base" borderWidth="base" borderRadius="base" style={{background: "#fef3cd"}}>
                 <s-stack gap="base">
                   <s-heading>{currentSettings.heading}</s-heading>
                   <s-badge tone="critical">
@@ -196,7 +196,7 @@ export default function Index() {
 
               <s-divider></s-divider>
 
-              <s-box padding="base" borderWidth="base" borderRadius="base" background="subdued">
+              <s-box padding="base" borderWidth="base" borderRadius="base" style={{background: "#d4edda"}}>
                 <s-stack gap="base">
                   <s-heading>{currentSettings.confirmedHeading}</s-heading>
                   <s-badge tone="success">
@@ -241,7 +241,7 @@ export default function Index() {
 
               <s-divider></s-divider>
 
-              <s-box padding="base" borderWidth="base" borderRadius="base" background="subdued">
+              <s-box padding="base" borderWidth="base" borderRadius="base" style={{background: "#f8d7da"}}>
                 <s-stack gap="base">
                   <s-heading>{currentSettings.cancelledHeading}</s-heading>
                   <s-badge tone="critical">
