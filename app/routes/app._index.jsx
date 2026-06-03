@@ -108,42 +108,40 @@ export default function Index() {
   return (
     <s-page heading="COD confirmation message">
       <fetcher.Form method="post">
-        <s-stack gap="xl">
+        <s-stack gap="20px">
 
-          <s-section heading="General Settings">
+          <s-box padding="base" borderWidth="base" borderRadius="base">
             <s-checkbox
               name="enabled"
               defaultChecked={currentSettings.enabled}
             >
               Show banner for COD orders
             </s-checkbox>
-          </s-section>
+          </s-box>
 
-          <s-section heading="Pending Confirmation (Default)">
-            <s-paragraph>
-              Shown when the order is COD and no WATI tag has been detected yet.
-            </s-paragraph>
+          <s-box padding="base" borderWidth="base" borderRadius="base">
+            <s-stack gap="12px" direction="block">
+              <s-heading>Pending Confirmation</s-heading>
+              <s-text color="subdued">
+                Shown when the order is COD and no WATI tag has been detected yet.
+              </s-text>
 
-            <s-stack gap="base">
               <s-text-field
                 label="Banner heading"
                 name="heading"
                 defaultValue={currentSettings.heading}
               />
-
               <s-text-field
                 label="Badge text"
                 name="badgeText"
                 defaultValue={currentSettings.badgeText}
               />
-
               <s-text-area
                 label="Main message"
                 name="bodyText"
                 defaultValue={currentSettings.bodyText}
                 rows={3}
               />
-
               <s-text-area
                 label="Warning message"
                 name="warningText"
@@ -151,33 +149,31 @@ export default function Index() {
                 rows={2}
               />
             </s-stack>
-          </s-section>
+          </s-box>
 
-          <s-section heading="Confirmed by WATI">
-            <s-paragraph>
-              Shown when the order has the "Confirmed by WATI" tag.
-            </s-paragraph>
+          <s-box padding="base" borderWidth="base" borderRadius="base">
+            <s-stack gap="12px" direction="block">
+              <s-heading>Confirmed by WATI</s-heading>
+              <s-text color="subdued">
+                Shown when the order has the "Confirmed by WATI" tag.
+              </s-text>
 
-            <s-stack gap="base">
               <s-text-field
                 label="Banner heading"
                 name="confirmedHeading"
                 defaultValue={currentSettings.confirmedHeading}
               />
-
               <s-text-field
                 label="Badge text"
                 name="confirmedBadgeText"
                 defaultValue={currentSettings.confirmedBadgeText}
               />
-
               <s-text-area
                 label="Main message"
                 name="confirmedBodyText"
                 defaultValue={currentSettings.confirmedBodyText}
                 rows={3}
               />
-
               <s-text-area
                 label="Warning message"
                 name="confirmedWarningText"
@@ -185,33 +181,31 @@ export default function Index() {
                 rows={2}
               />
             </s-stack>
-          </s-section>
+          </s-box>
 
-          <s-section heading="Cancelled by WATI">
-            <s-paragraph>
-              Shown when the order has the "Cancelled by WATI" tag.
-            </s-paragraph>
+          <s-box padding="base" borderWidth="base" borderRadius="base">
+            <s-stack gap="12px" direction="block">
+              <s-heading>Cancelled by WATI</s-heading>
+              <s-text color="subdued">
+                Shown when the order has the "Cancelled by WATI" tag.
+              </s-text>
 
-            <s-stack gap="base">
               <s-text-field
                 label="Banner heading"
                 name="cancelledHeading"
                 defaultValue={currentSettings.cancelledHeading}
               />
-
               <s-text-field
                 label="Badge text"
                 name="cancelledBadgeText"
                 defaultValue={currentSettings.cancelledBadgeText}
               />
-
               <s-text-area
                 label="Main message"
                 name="cancelledBodyText"
                 defaultValue={currentSettings.cancelledBodyText}
                 rows={3}
               />
-
               <s-text-area
                 label="Warning message"
                 name="cancelledWarningText"
@@ -219,7 +213,7 @@ export default function Index() {
                 rows={2}
               />
             </s-stack>
-          </s-section>
+          </s-box>
 
           <s-button
             type="submit"

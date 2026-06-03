@@ -110,11 +110,11 @@ function Extension() {
           {message.badgeText}
         </s-badge>
 
-        <s-text>
+        <s-text gap="base">
           {message.bodyText}
         </s-text>
 
-        <s-heading>
+        <s-heading gap="base">
           {message.warningText}
         </s-heading>
       </s-stack>
