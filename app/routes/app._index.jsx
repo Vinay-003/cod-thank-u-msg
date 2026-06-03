@@ -90,6 +90,28 @@ export const action = async ({ request }) => {
   };
 };
 
+function BannerPreview({
+  heading,
+  badgeText,
+  bodyText,
+  warningText,
+  tone = "warning",
+}) {
+  return (
+    <s-box padding="base" borderWidth="base" borderRadius="base">
+      <s-banner heading={heading} tone={tone}>
+        <s-stack gap="base">
+          <s-badge tone={tone === "success" ? "success" : "critical"}>
+            {badgeText}
+          </s-badge>
+          <s-text>{bodyText}</s-text>
+          <s-heading>{warningText}</s-heading>
+        </s-stack>
+      </s-banner>
+    </s-box>
+  );
+}
+
 export default function Index() {
   const { settings } = useLoaderData();
   const fetcher = useFetcher();
@@ -108,7 +130,7 @@ export default function Index() {
   return (
     <s-page heading="COD confirmation message">
       <fetcher.Form method="post">
-        <s-stack gap="20px">
+        <s-stack gap="28px">
 
           <s-box padding="base" borderWidth="base" borderRadius="base">
             <s-checkbox
@@ -120,7 +142,7 @@ export default function Index() {
           </s-box>
 
           <s-box padding="base" borderWidth="base" borderRadius="base">
-            <s-stack gap="12px" direction="block">
+            <s-stack gap="18px" direction="block">
               <s-heading>Pending Confirmation</s-heading>
               <s-text color="subdued">
                 Shown when the order is COD and no WATI tag has been detected yet.
@@ -151,21 +173,18 @@ export default function Index() {
 
               <s-divider></s-divider>
 
-              <s-box padding="base" borderWidth="base" borderRadius="base" style={{background: "#fef3cd"}}>
-                <s-stack gap="base">
-                  <s-heading>{currentSettings.heading}</s-heading>
-                  <s-badge tone="critical">
-                    {currentSettings.badgeText}
-                  </s-badge>
-                  <s-text>{currentSettings.bodyText}</s-text>
-                  <s-text emphasis="strong">{currentSettings.warningText}</s-text>
-                </s-stack>
-              </s-box>
+              <BannerPreview
+                heading={currentSettings.heading}
+                badgeText={currentSettings.badgeText}
+                bodyText={currentSettings.bodyText}
+                warningText={currentSettings.warningText}
+                tone="warning"
+              />
             </s-stack>
           </s-box>
 
           <s-box padding="base" borderWidth="base" borderRadius="base">
-            <s-stack gap="12px" direction="block">
+            <s-stack gap="18px" direction="block">
               <s-heading>Confirmed by WATI</s-heading>
               <s-text color="subdued">
                 Shown when the order has the "Confirmed by WATI" tag.
@@ -196,21 +215,18 @@ export default function Index() {
 
               <s-divider></s-divider>
 
-              <s-box padding="base" borderWidth="base" borderRadius="base" style={{background: "#d4edda"}}>
-                <s-stack gap="base">
-                  <s-heading>{currentSettings.confirmedHeading}</s-heading>
-                  <s-badge tone="success">
-                    {currentSettings.confirmedBadgeText}
-                  </s-badge>
-                  <s-text>{currentSettings.confirmedBodyText}</s-text>
-                  <s-text emphasis="strong">{currentSettings.confirmedWarningText}</s-text>
-                </s-stack>
-              </s-box>
+              <BannerPreview
+                heading={currentSettings.confirmedHeading}
+                badgeText={currentSettings.confirmedBadgeText}
+                bodyText={currentSettings.confirmedBodyText}
+                warningText={currentSettings.confirmedWarningText}
+                tone="success"
+              />
             </s-stack>
           </s-box>
 
           <s-box padding="base" borderWidth="base" borderRadius="base">
-            <s-stack gap="12px" direction="block">
+            <s-stack gap="18px" direction="block">
               <s-heading>Cancelled by WATI</s-heading>
               <s-text color="subdued">
                 Shown when the order has the "Cancelled by WATI" tag.
@@ -241,16 +257,13 @@ export default function Index() {
 
               <s-divider></s-divider>
 
-              <s-box padding="base" borderWidth="base" borderRadius="base" style={{background: "#f8d7da"}}>
-                <s-stack gap="base">
-                  <s-heading>{currentSettings.cancelledHeading}</s-heading>
-                  <s-badge tone="critical">
-                    {currentSettings.cancelledBadgeText}
-                  </s-badge>
-                  <s-text>{currentSettings.cancelledBodyText}</s-text>
-                  <s-text emphasis="strong">{currentSettings.cancelledWarningText}</s-text>
-                </s-stack>
-              </s-box>
+              <BannerPreview
+                heading={currentSettings.cancelledHeading}
+                badgeText={currentSettings.cancelledBadgeText}
+                bodyText={currentSettings.cancelledBodyText}
+                warningText={currentSettings.cancelledWarningText}
+                tone="critical"
+              />
             </s-stack>
           </s-box>
 

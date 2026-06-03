@@ -106,7 +106,7 @@ function Extension() {
   return (
     <s-banner heading={message.heading} tone={bannerTone}>
       <s-stack gap="base">
-        <s-badge tone={bannerTone === "success" ? "success" : bannerTone === "critical" ? "critical" : "critical"}>
+        <s-badge tone={bannerTone === "success" ? "success" : bannerTone === "critical" ? "critical" : "warning"}>
           {message.badgeText}
         </s-badge>
 
