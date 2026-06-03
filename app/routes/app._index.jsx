@@ -151,15 +151,16 @@ export default function Index() {
 
               <s-divider></s-divider>
 
-              <s-banner heading={currentSettings.heading} tone="warning">
+              <s-box padding="base" borderWidth="base" borderRadius="base" background="subdued">
                 <s-stack gap="base">
+                  <s-heading>{currentSettings.heading}</s-heading>
                   <s-badge tone="critical">
                     {currentSettings.badgeText}
                   </s-badge>
                   <s-text>{currentSettings.bodyText}</s-text>
-                  <s-heading>{currentSettings.warningText}</s-heading>
+                  <s-text emphasis="strong">{currentSettings.warningText}</s-text>
                 </s-stack>
-              </s-banner>
+              </s-box>
             </s-stack>
           </s-box>
 
@@ -195,15 +196,16 @@ export default function Index() {
 
               <s-divider></s-divider>
 
-              <s-banner heading={currentSettings.confirmedHeading} tone="success">
+              <s-box padding="base" borderWidth="base" borderRadius="base" background="subdued">
                 <s-stack gap="base">
+                  <s-heading>{currentSettings.confirmedHeading}</s-heading>
                   <s-badge tone="success">
                     {currentSettings.confirmedBadgeText}
                   </s-badge>
                   <s-text>{currentSettings.confirmedBodyText}</s-text>
-                  <s-heading>{currentSettings.confirmedWarningText}</s-heading>
+                  <s-text emphasis="strong">{currentSettings.confirmedWarningText}</s-text>
                 </s-stack>
-              </s-banner>
+              </s-box>
             </s-stack>
           </s-box>
 
@@ -239,15 +241,16 @@ export default function Index() {
 
               <s-divider></s-divider>
 
-              <s-banner heading={currentSettings.cancelledHeading} tone="critical">
+              <s-box padding="base" borderWidth="base" borderRadius="base" background="subdued">
                 <s-stack gap="base">
+                  <s-heading>{currentSettings.cancelledHeading}</s-heading>
                   <s-badge tone="critical">
                     {currentSettings.cancelledBadgeText}
                   </s-badge>
                   <s-text>{currentSettings.cancelledBodyText}</s-text>
-                  <s-heading>{currentSettings.cancelledWarningText}</s-heading>
+                  <s-text emphasis="strong">{currentSettings.cancelledWarningText}</s-text>
                 </s-stack>
-              </s-banner>
+              </s-box>
             </s-stack>
           </s-box>
 
