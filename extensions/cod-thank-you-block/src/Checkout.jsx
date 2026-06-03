@@ -17,6 +17,7 @@ function Extension() {
       "Please confirm your COD order on WhatsApp. We've sent you a confirmation message.",
     warningText: "Without confirmation, your order will not be shipped.",
   });
+  const [bannerTone, setBannerTone] = useState("warning");
 
   useEffect(() => {
     async function checkCodPayment() {
@@ -75,6 +76,14 @@ function Extension() {
             ...current,
             ...data.message,
           }));
+
+          if (data.message.badgeText === "CONFIRMED") {
+            setBannerTone("success");
+          } else if (data.message.badgeText === "CANCELLED") {
+            setBannerTone("critical");
+          } else {
+            setBannerTone("warning");
+          }
         }
       } catch (error) {
         console.log('COD block error:', error);
@@ -95,9 +104,9 @@ function Extension() {
   }
 
   return (
-    <s-banner heading={message.heading} tone="warning">
+    <s-banner heading={message.heading} tone={bannerTone}>
       <s-stack gap="base">
-        <s-badge tone="critical">
+        <s-badge tone={bannerTone === "success" ? "success" : bannerTone === "critical" ? "critical" : "critical"}>
           {message.badgeText}
         </s-badge>
 

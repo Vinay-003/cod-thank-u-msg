@@ -93,6 +93,7 @@ export async function action({ request }) {
               order(id: $id) {
                 id
                 name
+                tags
                 paymentGatewayNames
                 transactions {
                   gateway
@@ -192,6 +193,14 @@ export async function action({ request }) {
       bodyText:
         "Please confirm your COD order on WhatsApp. We've sent you a confirmation message.",
       warningText: "Without confirmation, your order will not be shipped.",
+      confirmedHeading: "Order Confirmed",
+      confirmedBadgeText: "CONFIRMED",
+      confirmedBodyText: "Your COD order has been confirmed via WhatsApp.",
+      confirmedWarningText: "Thank you for confirming your order.",
+      cancelledHeading: "Order Cancelled",
+      cancelledBadgeText: "CANCELLED",
+      cancelledBodyText: "Your COD order has been cancelled via WhatsApp.",
+      cancelledWarningText: "If this was a mistake, please contact support.",
     };
 
     const messageSettings = {
@@ -199,18 +208,41 @@ export async function action({ request }) {
       ...(settings || {}),
     };
 
+    const tags = order.tags || [];
+    const tagString = Array.isArray(tags) ? tags.join(", ").toLowerCase() : String(tags).toLowerCase();
+
+    let message;
+    if (tagString.includes("confirmed by wati")) {
+      message = {
+        heading: messageSettings.confirmedHeading,
+        badgeText: messageSettings.confirmedBadgeText,
+        bodyText: messageSettings.confirmedBodyText,
+        warningText: messageSettings.confirmedWarningText,
+      };
+    } else if (tagString.includes("cancelled by wati")) {
+      message = {
+        heading: messageSettings.cancelledHeading,
+        badgeText: messageSettings.cancelledBadgeText,
+        bodyText: messageSettings.cancelledBodyText,
+        warningText: messageSettings.cancelledWarningText,
+      };
+    } else {
+      message = {
+        heading: messageSettings.heading,
+        badgeText: messageSettings.badgeText,
+        bodyText: messageSettings.bodyText,
+        warningText: messageSettings.warningText,
+      };
+    }
+
     return Response.json(
       {
         isCod: Boolean(isCod && messageSettings.enabled),
         orderName: order.name,
         paymentGatewayNames: order.paymentGatewayNames || [],
         paymentText,
-        message: {
-          heading: messageSettings.heading,
-          badgeText: messageSettings.badgeText,
-          bodyText: messageSettings.bodyText,
-          warningText: messageSettings.warningText,
-        },
+        tags: Array.isArray(tags) ? tags : [],
+        message,
       },
       { status: 200, headers: corsHeaders },
     );

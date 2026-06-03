@@ -40,6 +40,14 @@ model CodMessageSettings {
   badgeText   String   @default("ACTION NEEDED")
   bodyText    String   @default("Please confirm your COD order on WhatsApp. We've sent you a confirmation message.")
   warningText String   @default("Without confirmation, your order will not be shipped.")
+  confirmedHeading     String   @default("Order Confirmed")
+  confirmedBadgeText   String   @default("CONFIRMED")
+  confirmedBodyText    String   @default("Your COD order has been confirmed via WhatsApp.")
+  confirmedWarningText String   @default("Thank you for confirming your order.")
+  cancelledHeading     String   @default("Order Cancelled")
+  cancelledBadgeText   String   @default("CANCELLED")
+  cancelledBodyText    String   @default("Your COD order has been cancelled via WhatsApp.")
+  cancelledWarningText String   @default("If this was a mistake, please contact support.")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
