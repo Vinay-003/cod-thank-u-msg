@@ -211,15 +211,6 @@ export async function action({ request }) {
     const tags = order.tags || [];
     const tagString = Array.isArray(tags) ? tags.join(", ").toLowerCase() : String(tags).toLowerCase();
 
-    console.log("Order tags in /api/check-cod", {
-      shop,
-      orderId,
-      tags,
-      tagString,
-      hasConfirmedByWati: tagString.includes("confirmed by wati"),
-      hasCancelledByWati: tagString.includes("cancelled by wati"),
-    });
-
     let message;
     if (tagString.includes("confirmed by wati")) {
       message = {
