@@ -69,19 +69,26 @@ function Extension() {
           data,
         });
 
+        console.log('COD block tags:', data?.tags);
+        console.log('COD block message:', data?.message);
+
         setIsCod(Boolean(data?.isCod));
 
         if (data?.message) {
+          console.log('COD block setting message:', data.message);
           setMessage((current) => ({
             ...current,
             ...data.message,
           }));
 
           if (data.message.badgeText === "CONFIRMED") {
+            console.log('COD block: setting tone to success');
             setBannerTone("success");
           } else if (data.message.badgeText === "CANCELLED") {
+            console.log('COD block: setting tone to critical');
             setBannerTone("critical");
           } else {
+            console.log('COD block: setting tone to warning');
             setBannerTone("warning");
           }
         }
